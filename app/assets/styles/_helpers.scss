@@ -1,0 +1,70 @@
+@use 'mixins' as *;
+
+.is-hidden {
+  // stylelint-disable-next-line declaration-no-important
+  display: none !important;
+}
+
+.is-hide {
+  opacity: 0 !important; // stylelint-disable-line declaration-no-important
+  pointer-events: none !important; // stylelint-disable-line declaration-no-important
+}
+
+.for-desktop {
+  @include devices {
+    // stylelint-disable-next-line declaration-no-important
+    display: none !important;
+  }
+}
+
+.for-devices {
+  @include desktop {
+    // stylelint-disable-next-line declaration-no-important
+    display: none !important;
+  }
+}
+
+.for-tablet {
+  @include desktop {
+    // stylelint-disable-next-line declaration-no-important
+    display: none !important;
+  }
+
+  @include mobile {
+    // stylelint-disable-next-line declaration-no-important
+    display: none !important;
+  }
+}
+
+.clearfix {
+  overflow: auto;
+
+  &::after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+/* stylelint-disable */
+.dont-break-out {
+  // Технически это одно и то же, но используйте и то, и другое
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  // Это самое опасное в WebKit, так как оно ломает вещи везде, где бы они ни были
+  word-break: break-all;
+  // Вместо этого используйте этот нестандартный:
+  word-break: break-word;
+  // Добавляет дефис там, где слово ломается, если поддерживается
+  hyphens: auto;
+}
+/* stylelint-enable */
