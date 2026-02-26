@@ -15,7 +15,8 @@
     "lint:style": "stylelint \"**/*.{css,scss,sass,vue}\" --allow-empty-input",
     "lint:style:fix": "stylelint \"**/*.{css,scss,sass,vue}\" --fix --allow-empty-input",
     "stylelint": "npm run lint:style",
-    "stylelint:fix": "npm run lint:style:fix"
+    "stylelint:fix": "npm run lint:style:fix",
+    "json-server": "tsx npm-scripts/test-server/json-server.ts"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.3",
@@ -25,6 +26,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.14.0",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^8.57.1",
@@ -32,6 +34,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-vue": "^9.33.0",
+    "json-server": "0.17.4",
     "postcss-html": "^1.8.1",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.8.1",
@@ -42,7 +45,7 @@
     "stylelint-declaration-block-no-ignored-properties": "^3.0.0",
     "stylelint-order": "^7.0.1",
     "stylelint-scss": "^7.0.0",
-    "@nuxtjs/tailwindcss": "^6.14.0",
+    "tsx": "^4.21.0",
     "vue-eslint-parser": "^10.4.0"
   }
 }

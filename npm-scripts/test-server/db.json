@@ -1,0 +1,47 @@
+{
+  "todoList": [
+    {
+      "id": "1",
+      "title": "Купить продукты на неделю",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Сдать отчет по проекту",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "title": "Записаться к стоматологу",
+      "completed": false
+    },
+    {
+      "title": "klk",
+      "completed": false,
+      "id": "ABUx7wO"
+    }
+  ],
+  "form": {
+    "success": {
+      "message": "Thank you for your submission!",
+      "success": true
+    },
+    "error": {
+      "message": "There was an error submitting your form.",
+      "success": false,
+      "status": 422,
+      "data": {
+        "errors": {
+          "email": [
+            "Please enter a valid email address.",
+            "test email 2"
+          ],
+          "phone": [
+            "Please enter a valid phone number.",
+            "test phoe 2"
+          ]
+        }
+      }
+    }
+  }
+}

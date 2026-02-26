@@ -176,20 +176,7 @@ iframe {
   width: 1px;
 }
 
-.app-content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.app-loaded {
-  opacity: 1;
-}
-
-.site-container {
-  flex: 1;
+.container {
   margin: 0 auto;
-  width: 100%;
+  max-width: vc(1200);
 }

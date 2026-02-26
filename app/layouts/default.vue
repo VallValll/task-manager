@@ -1,8 +1,10 @@
+<script setup lang="ts">
+import TheHeader from '~/components/TheHeader/TheHeader.vue';
+</script>
+
 <template>
   <div class="layout">
-    <header class="layout__header">
-      <NuxtLink to="/">Nuxt Template</NuxtLink>
-    </header>
+    <TheHeader />
     <main class="layout__main">
       <slot />
     </main>
