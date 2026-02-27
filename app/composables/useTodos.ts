@@ -7,9 +7,9 @@ export function useTodos() {
     const apiBase = config.public.apiBase;
     const storeTodo = useTodoStore();
 
-    const listTodos = async () => {
-        storeTodo.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);        
-    }    
+    const listTodos = async () => storeTodo.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);  
+    const totalTodos = computed(() => storeTodo.todos.length);
+    const completedTodosId = computed(() => storeTodo.todos.filter((todo) => todo.completed).map((todo) => todo.id))
 
     const filteredTodos = computed(() => {
         if (storeTodo.filter === 'active') {
@@ -36,14 +36,16 @@ export function useTodos() {
         await listTodos();
     }
 
-    const deleteTodo = async (id: string) => {     
-        await $fetch(`${apiBase}/todoList/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            },
-            
-        })
+    const deleteTodo = async (ids: Array<string | number> | string | number) => {
+        const idsToDelete = Array.isArray(ids) ? ids : [ids];
+
+        await Promise.all(
+            idsToDelete.map((id) =>
+                $fetch(`${apiBase}/todoList/${id}`, {
+                    method: 'DELETE',
+                })
+            )
+        )
 
         await listTodos();
     }
@@ -64,9 +66,11 @@ export function useTodos() {
 
     return {
         listTodos,
+        totalTodos,
         filteredTodos,
         addTodo,
         deleteTodo,
         toggleTodoCompleted,
+        completedTodosId,
     };
 }

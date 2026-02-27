@@ -99,6 +99,19 @@
   overflow: hidden auto;
   padding-right: vc(8);
 
+  &__empty {
+    border: vc(1) dashed #cbd5e1;
+    border-radius: vc(14);
+    color: #64748b;
+    display: block;
+    font-size: vc(14);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: vc(20);
+    padding: vc(18) vc(16);
+    text-align: center;
+  }
+
   &__item {
     display: flex;
     flex-direction: column;
@@ -167,6 +180,10 @@
   cursor: pointer;
   font-weight: 500;
   transition: 0.2s;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
 }
 
 .clear-btn:hover {

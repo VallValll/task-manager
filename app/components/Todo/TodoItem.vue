@@ -15,7 +15,7 @@ import { useTodos } from '~/composables/useTodos';
 const { deleteTodo, toggleTodoCompleted } = useTodos();
 
 const deleteT = async (id: string) => {
-  await deleteTodo(id);
+  await deleteTodo([id]);
 };
 
 const changeTodoCompleted = async (todo: TodoItemType) => {
