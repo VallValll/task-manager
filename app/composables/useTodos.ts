@@ -36,9 +36,22 @@ export function useTodos() {
         await listTodos();
     }
 
+    const deleteTodo = async (id: string) => {     
+        await $fetch(`${apiBase}/todoList/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            
+        })
+
+        await listTodos();
+    }
+
     return {
         listTodos,
         filteredTodos,
-        addTodo
+        addTodo,
+        deleteTodo,
     };
 }
