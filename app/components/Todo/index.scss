@@ -95,10 +95,15 @@
 }
 
 .todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: vc(12);
-  margin-bottom: vc(20);
+  max-height: vc(300);
+  overflow: scroll;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: vc(12);
+    margin-bottom: vc(20);
+  }
 }
 
 .todo-item {

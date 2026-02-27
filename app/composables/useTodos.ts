@@ -1,26 +1,24 @@
-import { ref, computed } from 'vue';
-import type { TodoFilter, TodoItem } from '~~/types/todo';
-
-const todos = ref<TodoItem[]>([]);
-const filter = ref<TodoFilter>('all');
+import { computed } from 'vue';
+import type { TodoItem } from '~~/types/todo';
+import { useTodoStore } from '~/stores/todoStore'
 
 export function useTodos() {
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
-
+    const store = useTodoStore();
 
     const listTodos = async () => {
-        todos.value = await $fetch<TodoItem[]>(`${apiBase}/todoList`);        
-    }
+        store.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);        
+    }    
 
     const filteredTodos = computed(() => {
-        if (filter.value === 'active') {
-            return todos.value.filter(todo => !todo.completed);
+        if (store.filter === 'active') {
+            return store.todos.filter(todo => !todo.completed);
         }
-        if (filter.value === 'completed') {
-            return todos.value.filter(todo => todo.completed);
+        if (store.filter === 'completed') {
+            return store.todos.filter(todo => todo.completed);
         }
-        return todos.value;
+        return store.todos;
     })
 
     const addTodo = async (newTitle: string) => {
@@ -39,7 +37,6 @@ export function useTodos() {
     }
 
     return {
-        todos,
         listTodos,
         filteredTodos,
         addTodo
