@@ -1,7 +1,11 @@
 <template>
-  <div :data-id="todo.id" :class="['todo-item', { completed: todo.completed }]">
+  <div
+    :data-id="todo.id"
+    :class="['todo-item', { completed: todo.completed }]"
+    @click="changeTodoCompleted(todo)"
+  >
     <div class="left">
-      <input type="checkbox" :checked="todo.completed" @change="changeTodoCompleted(todo)" />
+      <input type="checkbox" :checked="todo.completed" />
       <span class="todo-text">{{ todo.title }}</span>
     </div>
     <button class="delete-btn" @click="deleteT(todo.id)">x</button>

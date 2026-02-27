@@ -8,6 +8,7 @@
         placeholder="What needs to be done?"
         class="input"
         :class="{ error: !!error }"
+        @keydown.enter.prevent="createTodo"
       />
       <span v-if="error" class="input-error">{{ error }}</span>
     </div>
@@ -42,10 +43,10 @@ const validate = () => {
   return true;
 };
 
-const createTodo = () => {
+const createTodo = async () => {
   if (!validate()) return;
 
-  addTodo(newTitle.value.trim());
+  await addTodo(newTitle.value.trim());
   newTitle.value = '';
   inputRef.value?.focus();
 };
