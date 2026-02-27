@@ -5,20 +5,20 @@ import { useTodoStore } from '~/stores/todoStore'
 export function useTodos() {
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
-    const store = useTodoStore();
+    const storeTodo = useTodoStore();
 
     const listTodos = async () => {
-        store.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);        
+        storeTodo.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);        
     }    
 
     const filteredTodos = computed(() => {
-        if (store.filter === 'active') {
-            return store.todos.filter(todo => !todo.completed);
+        if (storeTodo.filter === 'active') {
+            return storeTodo.todos.filter(todo => !todo.completed);
         }
-        if (store.filter === 'completed') {
-            return store.todos.filter(todo => todo.completed);
+        if (storeTodo.filter === 'completed') {
+            return storeTodo.todos.filter(todo => todo.completed);
         }
-        return store.todos;
+        return storeTodo.todos;
     })
 
     const addTodo = async (newTitle: string) => {
@@ -48,10 +48,25 @@ export function useTodos() {
         await listTodos();
     }
 
+    const toggleTodoCompleted = async (id: string, completed: boolean) => {
+        await $fetch(`${apiBase}/todoList/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify({
+                completed
+            })            
+        })
+
+        await listTodos();
+    };
+
     return {
         listTodos,
         filteredTodos,
         addTodo,
         deleteTodo,
+        toggleTodoCompleted,
     };
 }

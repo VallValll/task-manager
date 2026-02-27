@@ -1,17 +1,17 @@
 .todo {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    
-    &__container {
-        backdrop-filter: blur(vc(20));
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: vc(24);
-        box-shadow: 0 vc(20) vc(40) rgba(0, 0, 0, 0.05);
-        max-width: vc(600);
-        padding: vc(30);
-        width: 100%;
-    }
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    backdrop-filter: blur(vc(20));
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: vc(24);
+    box-shadow: 0 vc(20) vc(40) rgba(0, 0, 0, 0.05);
+    max-width: vc(600);
+    padding: vc(30);
+    width: 100%;
+  }
 }
 
 .todo-input {
@@ -96,7 +96,8 @@
 
 .todo-list {
   max-height: vc(300);
-  overflow: scroll;
+  overflow: hidden auto;
+  padding-right: vc(8);
 
   &__item {
     display: flex;
