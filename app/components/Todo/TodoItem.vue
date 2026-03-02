@@ -8,7 +8,7 @@
       <input type="checkbox" :checked="todo.completed" />
       <span class="todo-text">{{ todo.title }}</span>
     </div>
-    <button class="delete-btn" @click="deleteT(todo.id)">x</button>
+    <button class="delete-btn" @click.stop="deleteT(todo.id)">x</button>
   </div>
 </template>
 

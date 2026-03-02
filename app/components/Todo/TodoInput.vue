@@ -12,7 +12,15 @@
       />
       <span v-if="error" class="input-error">{{ error }}</span>
     </div>
-    <button class="create-btn" @click="createTodo">Create</button>
+    <button
+      class="create-btn"
+      :disabled="isSubmitting"
+      :aria-busy="isSubmitting"
+      @click="createTodo"
+    >
+      <span v-if="isSubmitting" class="btn-spinner" aria-hidden="true"></span>
+      <span v-else>Create</span>
+    </button>
   </div>
 </template>
 
@@ -25,6 +33,7 @@ const { addTodo } = useTodos();
 const inputRef = ref<HTMLInputElement | null>(null);
 const newTitle = ref('');
 const error = ref('');
+const isSubmitting = ref(false);
 
 const validate = () => {
   const value = newTitle.value.trim();
@@ -44,10 +53,16 @@ const validate = () => {
 };
 
 const createTodo = async () => {
+  if (isSubmitting.value) return;
   if (!validate()) return;
 
-  await addTodo(newTitle.value.trim());
-  newTitle.value = '';
-  inputRef.value?.focus();
+  try {
+    isSubmitting.value = true;
+    await addTodo(newTitle.value.trim());
+    newTitle.value = '';
+    inputRef.value?.focus();
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 </script>

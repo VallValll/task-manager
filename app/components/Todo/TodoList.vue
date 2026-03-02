@@ -1,6 +1,8 @@
 ﻿<template>
   <div class="todo-list">
-    <span v-if="isEmpty" class="todo-list__empty">{{ emptyMessage }}</span>
+    <span v-if="isError" class="todo-list__empty is-error">'Не удалось загрузить задачи'</span>
+    <span v-else-if="isLoading" class="todo-list__empty">Загрузка...</span>
+    <span v-else-if="isEmpty" class="todo-list__empty">{{ emptyMessage }}</span>
     <div v-else class="todo-list__item">
       <TodoItem v-for="item in filteredTodos" :key="item.id" :todo="item" />
     </div>
@@ -17,6 +19,9 @@ const storeTodo = useTodoStore();
 
 const props = defineProps<{
   filteredTodos: TodoItem[];
+  isLoading: boolean;
+  isError: boolean;
+  errorMessage?: string;
 }>();
 
 const isEmpty = computed(() => props.filteredTodos.length === 0);

@@ -1,11 +1,5 @@
 {
-  "todoList": [
-    {
-      "title": "афав",
-      "completed": false,
-      "id": 1
-    }
-  ],
+  "todoList": [],
   "form": {
     "success": {
       "message": "Thank you for your submission!",
