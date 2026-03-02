@@ -107,8 +107,10 @@
   color: white;
 }
 
-.filter:hover {
-  background: #f1f5f9;
+.filter:not(.active):hover {
+  background: #6366f1;
+  box-shadow: 0 vc(6) vc(14) rgba(99, 102, 241, 0.25);
+  color: white;
 }
 
 .todo-list {
@@ -136,10 +138,25 @@
 
   &__item {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: vc(12);
     margin-bottom: vc(20);
   }
+}
+
+.todo-item-enter-active,
+.todo-item-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.todo-item-enter-from,
+.todo-item-leave-to {
+  opacity: 0;
+  transform: translateY(vc(6));
+}
+
+.todo-item-move {
+  transition: transform 0.2s ease;
 }
 
 .todo-item {
