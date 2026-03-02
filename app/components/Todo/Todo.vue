@@ -3,7 +3,7 @@
     <div class="todo__container">
       <TodoInput />
       <TodoFilters />
-      <TodoList :todo-list="filteredTodos" />
+      <TodoList :filtered-todos="filteredTodos" />
       <TodoFooter />
     </div>
   </div>
