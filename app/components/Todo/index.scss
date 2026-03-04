@@ -181,6 +181,53 @@
   gap: vc(10);
 }
 
+.right {
+  align-items: center;
+  display: flex;
+  gap: vc(10);
+}
+
+.edit-input {
+  background: #fff;
+  border: vc(1) solid #cbd5e1;
+  border-radius: vc(10);
+  color: #0f172a;
+  font-size: vc(14);
+  line-height: 1.2;
+  min-width: vc(180);
+  outline: none;
+  padding: vc(6) vc(10);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-input-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 vc(3) rgba(99, 102, 241, 0.14);
+}
+
+.edit-input.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 vc(3) rgba(239, 68, 68, 0.12);
+}
+
+.edit-input-error {
+  color: #ef4444;
+  font-size: vc(12);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: vc(6);
+}
+
+.todo-item.completed .edit-input {
+  color: #64748b;
+}
+
+
 .todo-text {
   color: #1e293b;
   font-size: vc(14);
