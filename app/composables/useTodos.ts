@@ -7,7 +7,7 @@ export function useTodos() {
     const config = useRuntimeConfig();
     const apiBase = config.public.apiBase;
     const storeTodo = useTodoStore();
-    const { open } = useErrorPopup();
+    const { open: openErrorPopup } = useErrorPopup();
 
     const { pending, error } = useFetch<TodoItem[]>(`${apiBase}/todoList`, {
         immediate: true,
@@ -46,7 +46,7 @@ export function useTodos() {
 
             await listTodos();
         } catch {
-            open();
+            openErrorPopup();
         }
     }
 
@@ -64,25 +64,26 @@ export function useTodos() {
 
             await listTodos();
         } catch {
-            open();
+            openErrorPopup();
         }
     }
 
-    const toggleTodoCompleted = async (id: string, completed: boolean) => {
+    const changeTodo = async (
+        id: string,
+        patch: Partial<Pick<TodoItem, 'title' | 'completed'>>
+    ) => {
         try {
             await $fetch(`${apiBase}/todoList/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
                 },
-                body: JSON.stringify({
-                    completed
-                })            
+                body: JSON.stringify(patch)            
             })
 
             await listTodos();
         } catch {
-            open();
+            openErrorPopup();
         }
     };
 
@@ -92,7 +93,7 @@ export function useTodos() {
         filteredTodos,
         addTodo,
         deleteTodo,
-        toggleTodoCompleted,
+        changeTodo,
         completedTodosId,
         pending,
         error,
