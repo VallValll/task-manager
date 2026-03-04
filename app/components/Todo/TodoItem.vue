@@ -6,17 +6,14 @@
         :checked="todo.completed"
         @change="changeTodoItem('completed', todo)"
       />
-      <div v-if="isEdit" class="edit-input-wrap">
-        <input
-          v-model="newTitle"
-          type="text"
-          class="edit-input"
-          :class="{ error: !!editError }"
-          @input="clearEditError"
-          @keydown.enter.prevent="changeTodoItem('title', todo)"
-        />
-        <span v-if="editError" class="edit-input-error">{{ editError }}</span>
-      </div>
+      <TheInput
+        v-if="isEdit"
+        v-model="newTitle"
+        :error="editError"
+        :is-submitting="isEditSubmitting"
+        :placeholder="TODO_EDIT_PLACEHOLDER"
+        @submit="changeTodoItem('title', todo)"
+      />
       <span v-else class="todo-text">{{ todo.title }}</span>
     </div>
     <div class="right">
@@ -32,7 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
+import TheInput from './TheInput.vue';
+import { TODO_EDIT_PLACEHOLDER, getTodoTitleError } from './constants';
 
 import type { TodoItem as TodoItemType } from '~~/types/todo';
 import { useTodos } from '~/composables/useTodos';
@@ -41,6 +41,7 @@ const { deleteTodo, changeTodo } = useTodos();
 let isEdit = ref(false);
 let newTitle = ref('');
 let editError = ref('');
+let isEditSubmitting = ref(false);
 
 const deleteT = async (id: string) => {
   await deleteTodo([id]);
@@ -50,9 +51,13 @@ const changeTodoItem = async (field: string, todo: TodoItemType) => {
   if (field === 'title') {
     if (!validateEditTitle()) return;
 
-    isEdit.value = false;
-
-    await changeTodo(todo.id, { title: newTitle.value.trim() });
+    try {
+      isEditSubmitting.value = true;
+      await changeTodo(todo.id, { title: newTitle.value.trim() });
+      isEdit.value = false;
+    } finally {
+      isEditSubmitting.value = false;
+    }
   }
 
   if (field === 'completed') {
@@ -66,27 +71,15 @@ const changeTodoTitle = async (todo: TodoItemType) => {
   editError.value = '';
 };
 
-const clearEditError = () => {
+const validateEditTitle = () => {
+  editError.value = getTodoTitleError(newTitle.value);
+  return !editError.value;
+};
+
+watch(newTitle, () => {
   if (!editError.value) return;
   editError.value = '';
-};
-
-const validateEditTitle = () => {
-  const value = newTitle.value.trim();
-
-  if (!value) {
-    editError.value = 'Введите название задачи';
-    return false;
-  }
-
-  if (value.length > 30) {
-    editError.value = 'Максимальная длина заголовка 30 символов';
-    return false;
-  }
-
-  editError.value = '';
-  return true;
-};
+});
 
 defineProps<{
   todo: TodoItemType;

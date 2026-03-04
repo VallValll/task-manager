@@ -1,17 +1,12 @@
 <template>
   <div class="todo-input">
-    <div class="input-wrap">
-      <input
-        ref="inputRef"
-        v-model="newTitle"
-        type="text"
-        placeholder="What needs to be done?"
-        class="input"
-        :class="{ error: !!error }"
-        @keydown.enter.prevent="createTodo"
-      />
-      <span v-if="error" class="input-error">{{ error }}</span>
-    </div>
+    <TheInput
+      v-model="newTitle"
+      :error="error"
+      :is-submitting="isSubmitting"
+      :placeholder="TODO_CREATE_PLACEHOLDER"
+      @submit="createTodo"
+    />
     <button
       class="create-btn"
       :disabled="isSubmitting"
@@ -27,29 +22,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import TheInput from './TheInput.vue';
+import { TODO_CREATE_PLACEHOLDER, getTodoTitleError } from './constants';
+
 import { useTodos } from '~/composables/useTodos';
 
 const { addTodo } = useTodos();
-const inputRef = ref<HTMLInputElement | null>(null);
 const newTitle = ref('');
 const error = ref('');
 const isSubmitting = ref(false);
 
 const validate = () => {
-  const value = newTitle.value.trim();
-
-  if (!value) {
-    error.value = 'Введите название задачи';
-    return false;
-  }
-
-  if (value.length > 30) {
-    error.value = 'Максимальная длина заголовка 30 символов';
-    return false;
-  }
-
-  error.value = '';
-  return true;
+  error.value = getTodoTitleError(newTitle.value);
+  return !error.value;
 };
 
 const createTodo = async () => {
@@ -60,7 +45,6 @@ const createTodo = async () => {
     isSubmitting.value = true;
     await addTodo(newTitle.value.trim());
     newTitle.value = '';
-    inputRef.value?.focus();
   } finally {
     isSubmitting.value = false;
   }
