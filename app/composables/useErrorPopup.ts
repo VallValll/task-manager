@@ -14,6 +14,6 @@ export function useErrorPopup() {
   return {
     isOpen,
     open,
-    close,
+    close
   };
 }
