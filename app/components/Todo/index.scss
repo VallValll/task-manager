@@ -114,6 +114,7 @@
 }
 
 .todo-list {
+  height: vc(300);
   max-height: vc(300);
   overflow: hidden auto;
   padding-right: vc(8);
@@ -142,6 +143,17 @@
     gap: vc(12);
     margin-bottom: vc(20);
   }
+}
+
+.todo-list-state-enter-active,
+.todo-list-state-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.todo-list-state-enter-from,
+.todo-list-state-leave-to {
+  opacity: 0;
+  transform: translateY(vc(4));
 }
 
 .todo-item-enter-active,

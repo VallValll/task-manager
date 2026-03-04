@@ -1,11 +1,17 @@
 ﻿<template>
   <div class="todo-list">
-    <span v-if="isError" class="todo-list__empty is-error">Не удалось загрузить задачи</span>
-    <span v-else-if="isLoading" class="todo-list__empty">Загрузка...</span>
-    <span v-else-if="isEmpty" class="todo-list__empty">{{ emptyMessage }}</span>
-    <TransitionGroup v-else name="todo-item" tag="div" class="todo-list__item">
-      <TodoItem v-for="item in filteredTodos" :key="item.id" :todo="item" />
-    </TransitionGroup>
+    <Transition name="todo-list-state" mode="out-in">
+      <span v-if="isError" key="error" class="todo-list__empty is-error">
+        Не удалось загрузить задачи
+      </span>
+      <span v-else-if="isLoading" key="loading" class="todo-list__empty">Загрузка...</span>
+      <span v-else-if="isEmpty" :key="`empty-${storeTodo.filter}`" class="todo-list__empty">
+        {{ emptyMessage }}
+      </span>
+      <TransitionGroup v-else key="list" name="todo-item" tag="div" class="todo-list__item">
+        <TodoItem v-for="item in filteredTodos" :key="item.id" :todo="item" />
+      </TransitionGroup>
+    </Transition>
   </div>
 </template>
 
