@@ -16,7 +16,8 @@
     "lint:style:fix": "stylelint \"**/*.{css,scss,sass,vue}\" --fix --allow-empty-input",
     "stylelint": "npm run lint:style",
     "stylelint:fix": "npm run lint:style:fix",
-    "json-server": "tsx npm-scripts/test-server/json-server.ts"
+    "json-server": "tsx npm-scripts/test-server/json-server.ts",
+    "test": "vitest"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.3",
@@ -46,6 +47,7 @@
     "stylelint-order": "^7.0.1",
     "stylelint-scss": "^7.0.0",
     "tsx": "^4.21.0",
+    "vitest": "^4.0.18",
     "vue-eslint-parser": "^10.4.0"
   }
 }
