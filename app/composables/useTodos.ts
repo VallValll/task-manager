@@ -28,7 +28,7 @@ export function useTodos() {
       isInitialized.value = true;
     }
   };
-  
+
   const totalTodos = computed(() => storeTodo.todos.length);
   const completedTodosId = computed(() =>
     storeTodo.todos.filter((todo) => todo.completed).map((todo) => todo.id)
@@ -56,11 +56,11 @@ export function useTodos() {
           completed: false
         })
       });
-
       await listTodos();
     } catch (err) {
-      error.value = err as Error;
+      // error.value = err as Error;
       openErrorPopup();
+      throw err;
     }
   };
 

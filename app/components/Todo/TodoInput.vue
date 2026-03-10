@@ -45,6 +45,9 @@ const createTodo = async () => {
     isSubmitting.value = true;
     await addTodo(newTitle.value.trim());
     newTitle.value = '';
+    console.log('test');
+  } catch (err) {
+    console.error(err);
   } finally {
     isSubmitting.value = false;
   }
