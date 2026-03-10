@@ -10,7 +10,7 @@ export function useTodos() {
   const storeTodo = useTodoStore();
   const { open: openErrorPopup } = useErrorPopup();
   const pending = useState<boolean>('todos_pending', () => false);
-  const error = useState<Error | null>('todos_error', () => null);
+  const error = useState<{ message: string } | null>('todos_error', () => null);
   const isInitialized = useState<boolean>('todos_initialized', () => false);
 
   const listTodos = async () => {
@@ -21,8 +21,8 @@ export function useTodos() {
       storeTodo.todos = await $fetch<TodoItem[]>(`${apiBase}/todoList`);
       return storeTodo.todos;
     } catch (err) {
-      error.value = err as Error;
-      throw err;
+      error.value = { message: err instanceof Error ? err.message : 'Unknown error' };
+      return [];
     } finally {
       pending.value = false;
       isInitialized.value = true;
@@ -58,7 +58,7 @@ export function useTodos() {
       });
       await listTodos();
     } catch (err) {
-      // error.value = err as Error;
+      // error.value = { message: err instanceof Error ? err.message : 'Unknown error' };
       openErrorPopup();
       throw err;
     }
@@ -78,7 +78,7 @@ export function useTodos() {
 
       await listTodos();
     } catch (err) {
-      error.value = err as Error;
+      error.value = { message: err instanceof Error ? err.message : 'Unknown error' };
       openErrorPopup();
     }
   };
@@ -95,7 +95,7 @@ export function useTodos() {
 
       await listTodos();
     } catch (err) {
-      error.value = err as Error;
+      error.value = { message: err instanceof Error ? err.message : 'Unknown error' };
       openErrorPopup();
     }
   };
