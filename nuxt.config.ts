@@ -25,11 +25,11 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Nuxt Template',
+      title: 'Task-Manager',
       meta: [
         {
           name: 'description',
-          content: 'A starter project for Nuxt'
+          content: 'Task-Manager - минималистичный менеджер задач на Nuxt 4. Данные хранятся в JSON Server.'
         }
       ]
     }
