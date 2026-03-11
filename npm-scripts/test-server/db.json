@@ -1,0 +1,26 @@
+{
+  "todoList": [],
+  "form": {
+    "success": {
+      "message": "Thank you for your submission!",
+      "success": true
+    },
+    "error": {
+      "message": "There was an error submitting your form.",
+      "success": false,
+      "status": 422,
+      "data": {
+        "errors": {
+          "email": [
+            "Please enter a valid email address.",
+            "test email 2"
+          ],
+          "phone": [
+            "Please enter a valid phone number.",
+            "test phoe 2"
+          ]
+        }
+      }
+    }
+  }
+}

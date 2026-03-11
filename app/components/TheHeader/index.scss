@@ -1,0 +1,16 @@
+.header {
+  background: linear-gradient(135deg, #f5f7fb, #eef2f9);
+  border-bottom: 1px solid #d7d9dd;
+  left: 0;
+  padding: vc(20) 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+
+  &__title {
+    color: #1e293b;
+    font-size: 28px;
+    font-weight: 600;
+  }
+}
